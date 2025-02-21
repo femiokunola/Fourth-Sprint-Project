@@ -1,7 +1,6 @@
 package daysteps
 
 import (
-	"errors"
 	"fmt"
 	"strconv"
 	"strings"
@@ -18,16 +17,16 @@ func parsePackage(data string) (int, time.Duration, error) {
 	// ваш код ниже
 	parts := strings.Split(data, ",")
 	if len(parts) != 2 {
-		return 0, 0, errors.New("Ошибка")
+		return 0, 0, fmt.Errorf("Elements must be 2")
 	}
 	numOfSteps, err := strconv.Atoi(parts[0])
 	if err != nil {
-		return 0, 0, errors.New("Ошибка")
+		return 0, 0, fmt.Errorf("Conversion error: %w", err)
 	}
 
 	duration, err := time.ParseDuration(parts[1])
 	if err != nil {
-		return 0, 0, errors.New("Ошибка")
+		return 0, 0, fmt.Errorf("Conversion error: %w", err)
 	}
 
 	return numOfSteps, duration, nil

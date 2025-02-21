@@ -1,7 +1,6 @@
 package spentcalories
 
 import (
-	"errors"
 	"fmt"
 	"strconv"
 	"strings"
@@ -21,15 +20,15 @@ func parseTraining(data string) (int, string, time.Duration, error) {
 	// ваш код ниже
 	parts := strings.Split(data, ",")
 	if len(parts) != 3 {
-		return 0, "", 0, errors.New("Ошибка")
+		return 0, "", 0.0, fmt.Errorf("Elements should be 3")
 	}
 	steps, err := strconv.Atoi(parts[0])
 	if err != nil {
-		return 0, "", 0, errors.New("Ошибка")
+		return 0, "", 0.0, fmt.Errorf("Conversion error: %w", err)
 	}
 	duration, err := time.ParseDuration(parts[2])
 	if err != nil {
-		return 0, "", 0, errors.New("Ошибка")
+		return 0, "", 0.0, fmt.Errorf("Conversion error: %w", err)
 	}
 	trainingType := parts[1]
 
